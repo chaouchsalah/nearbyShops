@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 
 import { AuthentificationService } from './authentification.service';
+import { ShopsService } from './home/shops.service';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -32,7 +33,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes)
   ],
   providers: [
-    AuthentificationService
+    AuthentificationService,
+    ShopsService
   ],
   bootstrap: [AppComponent]
 })

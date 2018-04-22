@@ -7,11 +7,16 @@ const mongoose = require('mongoose');
 const bb = require('express-busboy');
 var passport = require('passport');
 
+// Create the schemas needed
 require('./models/user.model');
+require('./models/shop.model');
+
+// Configuring the middleware for authentication
 require('./config/passport.config');
 
 // Routes API
 const routesApi = require('./routes/auth.route');
+const routesShop = require('./routes/shop.route');
 
 // Define our app using express
 const app = express();
@@ -37,10 +42,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const port = process.env.PORT || 3000;
 // connect to database
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/investAI');
+mongoose.connect('mongodb://localhost/shops');
 
 app.use(passport.initialize());
+// Defining the routes
 app.use('/api', routesApi);
+app.use('/api', routesShop);
 app.get('/', (req, res) => {
     return res.end('');
 });
