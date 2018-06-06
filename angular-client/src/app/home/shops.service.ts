@@ -11,7 +11,7 @@ export class ShopsService {
   private apiUrl = 'http://localhost:3000/api/';
   constructor(private http: HttpClient) {}
   getShops(): Promise<any> {
-        return this.http.get(this.apiUrl + 'shops')
+        return this.http.get(this.apiUrl + 'shops', { headers: { Authorization: `Bearer ${this.getToken()}` }})
                    .toPromise()
                    .then(this.handleData)
                    .catch(this.handleError);

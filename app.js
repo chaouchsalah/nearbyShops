@@ -10,6 +10,7 @@ var passport = require('passport');
 // Create the schemas needed
 require('./models/user.model');
 require('./models/shop.model');
+require('./models/preferedShops.model');
 
 // Configuring the middleware for authentication
 require('./config/passport.config');
@@ -17,6 +18,7 @@ require('./config/passport.config');
 // Routes API
 const routesApi = require('./routes/auth.route');
 const routesShop = require('./routes/shop.route');
+const routesPreferdShops = require('./routes/preferedShops.route');
 
 // Define our app using express
 const app = express();
@@ -48,6 +50,8 @@ app.use(passport.initialize());
 // Defining the routes
 app.use('/api', routesApi);
 app.use('/api', routesShop);
+app.use('/api', routesPreferdShops);
+
 app.get('/', (req, res) => {
     return res.end('');
 });
