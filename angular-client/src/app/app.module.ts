@@ -8,15 +8,17 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
+import { PreferedShopsComponent } from './prefered-shops/prefered-shops.component';
 
 import { AuthentificationService } from './authentification.service';
-import { ShopsService } from './home/shops.service';
+import { ShopsService } from './shops.service';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent}
+  { path: 'home', component: HomeComponent},
+  { path: 'preferedShops', component: PreferedShopsComponent}
 ];
 
 @NgModule({
@@ -24,7 +26,8 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    PreferedShopsComponent
   ],
   imports: [
     BrowserModule,

@@ -5,20 +5,30 @@ const atob = require('atob');
 // Import the models needed
 const Shop = mongoose.model('Shop');
 const PreferedShops = mongoose.model('PreferedShops');
+const DislikedShops = mongoose.model('DislikedShops');
 
 exports.getShops = async(req, res) => {
     const authorization = req.headers.authorization;
     const token = authorization.substring(authorization.indexOf(" ") + 1, authorization.length);
     const user = getUserDetails(token);
     const userId = user._id;
-    let preferedShops = await PreferedShops.find({ user: userId }).lean().exec().then((shops) => {
+    let ignoredShops = [];
+    ignoredShops = await PreferedShops.find({ user: userId }).lean().exec().then((shops) => {
         let shopsId = [];
         for (let i = 0; i < shops.length; i++) {
             shopsId.push(shops[i].shop);
         }
         return shopsId;
     });
-    let shops = await Shop.find({ "_id": { "$nin": preferedShops } }).lean().exec().then((shops) => {
+    const dislikedShops = await DislikedShops.find({ user: userId }).lean().exec().then((shops) => {
+        let shopsId = [];
+        for (let i = 0; i < shops.length; i++) {
+            shopsId.push(shops[i].shop);
+        }
+        return shopsId;
+    });
+    Array.prototype.push.apply(ignoredShops, dislikedShops);
+    let shops = await Shop.find({ "_id": { "$nin": ignoredShops } }).lean().exec().then((shops) => {
         return shops;
     }).catch((err) => {
         return res.json({ 'success': false, 'message': err });

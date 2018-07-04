@@ -2,7 +2,6 @@
     <div *ngFor="let shop of shops" class="shop">
         <p class="shop-name">{{shop.name}}</p>
         <img src="{{shop.picture}}" alt="Picture of {{shop.name}}" style="width: 200px;height:200px;" /><br/>
-        <button class="btn btn-success app-btn" (click)="addPreferedShop(shop._id)">Like</button>
-        <button class=" btn btn-danger app-btn" (click)="addDislikedShop(shop._id)">Dislike</button>
+        <button class="btn btn-danger app-btn" (click)="removePreferedShop(shop._id)">Remove</button>
     </div>
 </div>

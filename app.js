@@ -11,6 +11,7 @@ var passport = require('passport');
 require('./models/user.model');
 require('./models/shop.model');
 require('./models/preferedShops.model');
+require('./models/dislikedShops.model');
 
 // Configuring the middleware for authentication
 require('./config/passport.config');
@@ -19,6 +20,7 @@ require('./config/passport.config');
 const routesApi = require('./routes/auth.route');
 const routesShop = require('./routes/shop.route');
 const routesPreferdShops = require('./routes/preferedShops.route');
+const routesDislikedShops = require('./routes/dislikedShops.route');
 
 // Define our app using express
 const app = express();
@@ -51,6 +53,7 @@ app.use(passport.initialize());
 app.use('/api', routesApi);
 app.use('/api', routesShop);
 app.use('/api', routesPreferdShops);
+app.use('/api', routesDislikedShops);
 
 app.get('/', (req, res) => {
     return res.end('');

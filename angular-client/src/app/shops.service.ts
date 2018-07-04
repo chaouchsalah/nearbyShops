@@ -10,11 +10,36 @@ export class ShopsService {
     private token: string;
   private apiUrl = 'http://localhost:3000/api/';
   constructor(private http: HttpClient) {}
+  // Fetch shops that are not disliked and not preferred shops
   getShops(): Promise<any> {
         return this.http.get(this.apiUrl + 'shops', { headers: { Authorization: `Bearer ${this.getToken()}` }})
                    .toPromise()
                    .then(this.handleData)
                    .catch(this.handleError);
+    }
+    getPreferedShops(): Promise<any> {
+      return this.http.get(this.apiUrl + 'preferedShops', { headers: { Authorization: `Bearer ${this.getToken()}` }})
+                  .toPromise()
+                  .then(this.handleData)
+                  .catch(this.handleError);
+    }
+    addPreferedShop(shop: any): Promise<any> {
+      return this.http.post(this.apiUrl + 'preferedShops/' + shop, {}, { headers: { Authorization: `Bearer ${this.getToken()}` }})
+                  .toPromise()
+                  .then(this.handleData)
+                  .catch(this.handleError);
+    }
+    addDislikedShop(shop: any): Promise<any> {
+      return this.http.post(this.apiUrl + 'dislikedShops/' + shop, {}, { headers: { Authorization: `Bearer ${this.getToken()}` }})
+                  .toPromise()
+                  .then(this.handleData)
+                  .catch(this.handleError);
+    }
+    removePreferedShop(shop: any): Promise<any> {
+      return this.http.delete(this.apiUrl + 'preferedShops/' + shop, { headers: { Authorization: `Bearer ${this.getToken()}` }})
+                  .toPromise()
+                  .then(this.handleData)
+                  .catch(this.handleError);
     }
 
 private handleData(res: any) {
